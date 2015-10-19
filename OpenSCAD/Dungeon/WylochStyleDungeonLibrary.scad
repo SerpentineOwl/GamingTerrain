@@ -1,6 +1,7 @@
 size = 32;
 baseheight = 6;
 topperheight = 2;
+topperrounded = true;
 walllength = size;
 wallheight = 25 + baseheight + topperheight;
 wallwidth = 6;
@@ -8,11 +9,15 @@ wallwidththin = 4;
 
 function hypotenuse_ra(side_a, side_b) =
     sqrt(pow(side_a, 2) + pow(side_b, 2));
-
-module wsdl_Base_1x1(s,bh,th) 
+    
+module wsdl_Base(s,bh)
 {
-    union () {
-        cube([s,s,bh]);
+    cube([s,s,bh]);
+}
+
+module wsdl_Topper(s,bh,th,tr)
+{
+    if (tr) {
         translate([0,0,bh])
             intersection() {
                 difference () {
@@ -39,41 +44,67 @@ module wsdl_Base_1x1(s,bh,th)
                         $fa=.1);
             }    
     }
+    else {
+        translate([0,0,bh])
+            difference() {
+                cube([s,s,th]);
+                union () {
+                rotate(a=45, v=[1,0,0])
+                    cube([s,th*2,th*2]);
+                translate([0,s,0])
+                    rotate(a=45, v=[1,0,0])
+                        cube([s,th*2,th*2]);
+                rotate(a=-45, v=[0,1,0])
+                    cube([th*2,s,th*2]);
+                translate([s,0,0])
+                    rotate(a=-45, v=[0,1,0])
+                        cube([th*2,s,th*2]);
+                }
+            }    
+    }
 }
 
-module wsdl_Base_1x2(s,bh,th)
+module wsdl_Base_1x1(s,bh,th,tr) 
 {
     union () {
-        wsdl_Base_1x1(s,bh,th);
+        wsdl_Base(s,bh);
+        wsdl_Topper(s,bh,th,tr);
+    }
+}
+
+module wsdl_Base_1x2(s,bh,th,tr)
+{
+    union () {
+        wsdl_Base_1x1(s,bh,th,tr);
         translate([s,0,0])
-            wsdl_Base_1x1(s,bh,th);
+            wsdl_Base_1x1(s,bh,th,tr);
     }
 }
  
-module wsdl_Base_2x2(s,bh,th)
+module wsdl_Base_2x2(s,bh,th,tr)
 {
     union () {
-        wsdl_Base_1x2(s,bh,th);
+        wsdl_Base_1x2(s,bh,th,tr);
         translate([0,s,0])
-            wsdl_Base_1x2(s,bh,th);
+            wsdl_Base_1x2(s,bh,th,tr);
     }
 }
  
-module wsdl_Base_2x4(s,bh,th)
+module wsdl_Base_2x4(s,bh,th,tr)
 {
     union () {
-        wsdl_Base_2x2(s,bh,th);
+        wsdl_Base_2x2(s,bh,th,tr);
         translate([s*2,0,0])
-            wsdl_Base_2x2(s,bh,th);
+            wsdl_Base_2x2(s,bh,th,tr);
     }
 }
  
-module wsdl_Base_4x4(s,bh,th)
+module wsdl_Base_4x4(s,bh,th,tr)
 {
     union () {
-        wsdl_Base_2x4(s,bh,th);
+        wsdl_Base_2x4(s,bh,th,tr);
         translate([0,s*2,0])
-            wsdl_Base_2x4(s,bh,th);
+            wsdl_Base_2x4(s,bh,th,tr);
     }
 }
  
