@@ -1,3 +1,13 @@
+//Constants
+wallleft = 0;
+wallbottom = 1;
+wallright = 2;
+walltop = 3;
+wallcenter = 4;
+walldoubleright = 5;
+
+
+//Variables
 size = 32;
 baseheight = 6;
 topperheight = 2;
@@ -7,9 +17,13 @@ wallheight = 25 + baseheight + topperheight;
 wallwidth = 6;
 wallwidththin = 4;
 
+
+//Functions
 function hypotenuse_ra(side_a, side_b) =
     sqrt(pow(side_a, 2) + pow(side_b, 2));
     
+    
+//Modules    
 module wsdl_Base(s,bh)
 {
     cube([s,s,bh]);
@@ -113,6 +127,40 @@ module wsdl_Wall_1(w,l,h)
     cube([w,l,h]);   
 }
 
+module wsdl_Wall_1_Position(w,l,h,p)
+{
+    if (p==0) {
+        wsdl_Wall_1(w,l,h);
+    }
+    
+    else if (p==1) {
+        rotate(a=-90)
+           translate([-w,0,0])
+               wsdl_Wall_1(w,l,h);       
+    }
+    
+    else if (p==2) {
+        translate([(size)-w,0,0])
+            wsdl_Wall_1(w,l,h);
+    }
+    
+    else if (p==3) {
+        rotate(a=-90)
+            translate([-l,0,0])
+                wsdl_Wall_1(w,l,h);
+    }
+    
+    else if (p==4) {
+        translate([(size)-w/2,0,0])
+            wsdl_Wall_1(w,l,h);
+    }
+    
+    else if (p==5) {
+        translate([(size*2)-w,0,0])
+           wsdl_Wall_1(w,l,h);       
+    }
+}
+
 module wsdl_Wall_2(w,l,h)
 {
     union() {
@@ -122,75 +170,31 @@ module wsdl_Wall_2(w,l,h)
     }
 }
 
-module wsdl_Wall_1_Left(w,l,h) 
+module wsdl_Wall_2_Position(w,l,h,p)
 {
-    wsdl_Wall_1(w,l,h);
-}
-
-module wsdl_Wall_1_Right(w,l,h) 
-{
-    translate([(size)-w,0,0])
-        wsdl_Wall_1(w,l,h);
-}
-
-module wsdl_Wall_1_DoubleRight(w,l,h) 
-{
-    translate([(size*2)-w,0,0])
-        wsdl_Wall_1(w,l,h);
-}
-
-module wsdl_Wall_1_Bottom(w,l,h) 
-{
-rotate(a=-90)
-    translate([-w,0,0])
-        wsdl_Wall_1(w,l,h);
-
-}
-
-module wsdl_Wall_1_Top(w,l,h) 
-{
-rotate(a=-90)
-    translate([-l,0,0])
-        wsdl_Wall_1(w,l,h);
-
-}
-
-module wsdl_Wall_1_Center(w,l,h) 
-{
-    translate([(size)-w/2,0,0])
-        wsdl_Wall_1(w,l,h);
-}
-
-
-module wsdl_Wall_2_Left(w,l,h) 
-{
-    wsdl_Wall_2(w,l,h);
-}
-
-module wsdl_Wall_2_Right(w,l,h) 
-{
+    if (p==0) {
+        wsdl_Wall_2(w,l,h);
+    }
+    
+    else if (p==1) {
+        rotate(a=-90)
+            translate([-w,0,0])
+                wsdl_Wall_2(w,l,h);
+    }
+    
+    else if (p==2) {
     translate([(size*2)-w,0,0])
         wsdl_Wall_2(w,l,h);
-}
-
-module wsdl_Wall_2_Bottom(w,l,h) 
-{
-rotate(a=-90)
-    translate([-w,0,0])
-        wsdl_Wall_2(w,l,h);
-
-}
-
-module wsdl_Wall_2_Top(w,l,h) 
-{
-rotate(a=-90)
-    translate([-l*2,0,0])
-        wsdl_Wall_2(w,l,h);
-
-}
-
-module wsdl_Wall_2_Center(w,l,h) 
-{
-    translate([(size)-w/2,0,0])
-        wsdl_Wall_2(w,l,h);
+    }
+    
+    else if (p==3) {
+        rotate(a=-90)
+            translate([-l*2,0,0])
+                wsdl_Wall_2(w,l,h);
+    }
+    
+    else if (p==4) {
+        translate([(size)-w/2,0,0])
+            wsdl_Wall_2(w,l,h);
+    }
 }
