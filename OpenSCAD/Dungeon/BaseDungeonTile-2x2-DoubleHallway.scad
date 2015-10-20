@@ -1,6 +1,6 @@
-include <WylochStyleDungeonLibrary.scad>; 
+include <ModularDungeonTileLibrary.scad>; 
  
-wsdl_Base_2x2(size,baseheight,topperheight,topperrounded=false);
-wsdl_Wall_2_Position(wallwidththin,walllength,wallheight,wallleft);
-wsdl_Wall_2_Position(wallwidththin,walllength,wallheight,wallright);
-wsdl_Wall_2_Position(wallwidththin,walllength,wallheight,wallcenter);
+mdtl_Base_2x2(size,baseheight,topperheight,topperrounded=false);
+mdtl_Wall_2_Position(wallwidththin,walllength,wallheight,wallleft);
+mdtl_Wall_2_Position(wallwidththin,walllength,wallheight,wallright);
+mdtl_Wall_2_Position(wallwidththin,walllength,wallheight,wallcenter);

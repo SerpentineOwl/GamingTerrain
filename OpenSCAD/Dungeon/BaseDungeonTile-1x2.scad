@@ -1,3 +1,3 @@
-include <WylochStyleDungeonLibrary.scad>; 
+include <ModularDungeonTileLibrary.scad>; 
 
-wsdl_Base_1x2(size,baseheight,topperheight,topperrounded);
+mdtl_Base_1x2(size,baseheight,topperheight,topperrounded);

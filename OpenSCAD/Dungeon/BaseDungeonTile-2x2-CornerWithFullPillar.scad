@@ -1,7 +1,7 @@
-include <WylochStyleDungeonLibrary.scad>; 
+include <ModularDungeonTileLibrary.scad>; 
 
-wsdl_Base_2x2(size,baseheight,topperheight,topperrounded);
-wsdl_Wall_2_Position(wallwidth,walllength,wallheight,walltop);
-wsdl_Wall_2_Position(wallwidth,walllength,wallheight,wallright);
+mdtl_Base_2x2(size,baseheight,topperheight,topperrounded);
+mdtl_Wall_2_Position(wallwidth,walllength,wallheight,walltop);
+mdtl_Wall_2_Position(wallwidth,walllength,wallheight,wallright);
 //Create Pillar with Modified wall
-wsdl_Wall_1_Position(size,size,wallheight,wallleft);
+mdtl_Wall_1_Position(size,size,wallheight,wallleft);
