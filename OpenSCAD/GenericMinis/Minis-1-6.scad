@@ -8,7 +8,7 @@ module gm_NumberMini(minitext,offset_y)
             cylinder(h=3,r=10,$fn=6);
         }
         translate([offset_y,0,5.9])
-            scale([2.5,1,3.5])
+            scale([2.5,1,3.8])
                 translate([0,2,0])
                     rotate(a=90,v=[1,0,0])
                         linear_extrude (height=4)
@@ -29,24 +29,37 @@ translate([0,24,0])
     gm_NumberMini("2", offset_y_digit);
 translate([0,48,0])
     gm_NumberMini("3", offset_y_digit);
-//translate([0,-14,-4.5])
-//    rotate(a=-90,v=[1,0,0])
-//        cylinder(h=114,r=2);
+//translate([0,72,0])
+//    gm_NumberMini("4", offset_y_digit);
+//translate([0,96,0])
+//    gm_NumberMini("5", offset_y_digit);
+translate([0,-16,-4.5])
+    rotate(a=-90,v=[1,0,0])
+        cylinder(h=92,r=2);
 
 rotate(a=180,v=[0,1,0])
-    translate ([0,12,-53]) {
+    translate ([0,12,-50]) {
         rotate(a=60,v=[0,0,1])
             gm_NumberMini("4", offset_y_digit);
         translate([0,24,0])
             rotate(a=60,v=[0,0,1])
                 gm_NumberMini("5", offset_y_digit);
-//        translate([0,-34,-4.5])
-//            rotate(a=-90,v=[1,0,0])
-//                cylinder(h=114,r=2);
+        translate([0,48,0])
+            rotate(a=60,v=[0,0,1])
+                gm_NumberMini("6", offset_y_digit);
+//        translate([0,72,0])
+//            rotate(a=60,v=[0,0,1])
+//                gm_NumberMini("9", offset_y_digit);
+//        translate([0,96,0])
+//            rotate(a=60,v=[0,0,1])
+//                gm_NumberMini("0", offset_y_digit);
+        translate([0,-28,-4.5])
+            rotate(a=-90,v=[1,0,0])
+                cylinder(h=92,r=2);
     }
     
-//translate([0,-14,-5.5])
-//    cylinder(h=64,r=2);
-//translate([0,136,0])
-//    translate([0,-36,-5.5])
-//        cylinder(h=64,r=2);
+translate([0,-14,-5.5])
+    cylinder(h=62,r=2);
+translate([0,110,0])
+    translate([0,-36,-5.5])
+        cylinder(h=62,r=2);
