@@ -46,34 +46,71 @@ module sml_MiniBase (bsc, bw, bto, bh) {
 }
 
 module sml_Cutout (bw, bh, coh, cot) {
-    //Top Cutout
-    translate([-(cot/2),-(bw+2)/2,bh-coh])
-       cube([cot,bw+2,coh]);    
+    //Cutout
+    translate([-(cot),-(bw)/2,bh-coh])
+        difference() {
+            cube([cot*2,bw,coh]);
+            translate([cot,0,coh/2])
+                cube([cot,bw,coh/2]);
+        }
 }
 
 module sml_MiniBaseWithCutout (bsc, bw, bto, bh, coh, cot) {
-    translate([0,0,bh])
-        rotate([180,0,0])
+//    translate([0,0,bh])
+//        rotate([180,0,0])
             difference () {
                 sml_MiniBase(bsc, bw, bto, bh);
                 sml_Cutout (bw, bh, coh, cot);
             }
 }
+
+module sml_Text(tc, tt, ths, tws) {
+    scale([tws,ths,1])
+        linear_extrude (height=tt)
+            text(tc);
+} 
     
 
 sml_BaseSideCount = 6;
 sml_BaseWidth = 24;
-sml_BaseTopOffset = 1;
+sml_BaseTopOffset = 0;
 sml_BaseHeight = 6;
 
-sml_TextThickness = 4;
-sml_TextHeightScale = 4;
-sml_TextWidthScale = 3;
+sml_CutoutHeight = 4;
+sml_CutoutThickness = 2;
 
-sml_CutoutHeight = 3;
-sml_CutoutThickness = sml_TextThickness;
+sml_TextThickness = sml_CutoutThickness;
+sml_TextHeightScale = 3.8;
+sml_TextWidthScale = 2;
+sml_TextCharacter = "X";
 
-//sml_MiniBase(sml_BaseSideCount, sml_BaseWidth, sml_BaseTopOffset, sml_BaseHeight);
-//sml_Cutout (sml_BaseWidth, sml_BaseHeight);
+sml_Text_X_Offset_023456789 = 7.77;
+sml_Text_X_Offset_1 = 8.27;
+sml_Text_X_Offset_ABX = 9.27;
+sml_Text_X_Offset_D = 10.27;
+sml_Text_X_Offset_C = 10.77;
 
-sml_MiniBaseWithCutout(sml_BaseSideCount, sml_BaseWidth, sml_BaseTopOffset, sml_BaseHeight, sml_CutoutHeight, sml_CutoutThickness);
+translate([0,-(sml_BaseWidth*1.5),sml_BaseHeight])
+    rotate([180,0,0])
+        translate([0,-((sml_BaseWidth/2)+4),0])
+            rotate([0,0,-90])
+                sml_MiniBaseWithCutout(sml_BaseSideCount, sml_BaseWidth, sml_BaseTopOffset, sml_BaseHeight, sml_CutoutHeight, sml_CutoutThickness);
+
+difference () {
+    union () {
+        translate([0,-sml_CutoutThickness+.1,sml_CutoutHeight-sml_BaseHeight])
+            rotate([0,0,90])
+                sml_Cutout(sml_BaseWidth, sml_BaseHeight, sml_CutoutHeight, sml_CutoutThickness);
+        translate([-sml_Text_X_Offset_ABX,0,0])
+            sml_Text(sml_TextCharacter, sml_TextThickness, sml_TextHeightScale, sml_TextWidthScale);
+    }
+    translate([0,-(sml_BaseHeight+sml_CutoutThickness-.2),0])
+        rotate([0,-90,-90])
+            difference() {
+            translate([-(sml_BaseWidth+1)/2,-(sml_BaseWidth+1)/2,0])
+                cube([sml_BaseWidth+1,sml_BaseWidth+1,sml_BaseHeight]);
+            sml_MiniBaseWithCutout(sml_BaseSideCount, sml_BaseWidth, sml_BaseTopOffset, sml_BaseHeight, sml_CutoutHeight, sml_CutoutThickness);
+        }
+}
+
+
