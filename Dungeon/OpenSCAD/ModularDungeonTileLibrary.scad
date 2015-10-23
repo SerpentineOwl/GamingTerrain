@@ -9,11 +9,14 @@ walldoubleright = 5;
 
 //Variables
 size = 32;
-baseheight = 6;
+connectorlength = size-10;
+connectorwidth = 6;
+connectorheight = 4;
+baseheight = 8;
 topperheight = 2;
 topperrounded = true;
 walllength = size;
-wallheight = 25 + baseheight + topperheight;
+wallheight = 25;
 wallwidth = 6;
 wallwidththin = 4;
 
@@ -24,6 +27,16 @@ function hypotenuse_ra(side_a, side_b) =
     
     
 //Modules    
+module mtdl_Base_Connector(cw,cl,ch) {
+    translate([-connectorwidth/2,-connectorlength/2,-connectorheight/2]) {
+        cube([cw,cl,ch/2]);
+        translate([cw/3,0,ch/2])
+            cube([cw/3,cl,ch/2]);
+        translate([-(cw-2)/2,cl/2-2,0])
+            cube([cw+4,4,ch]);
+    }
+}
+
 module mdtl_Base(s,bh)
 {
     cube([s,s,bh]);
@@ -80,9 +93,25 @@ module mdtl_Topper(s,bh,th,tr)
 
 module mdtl_Base_1x1(s,bh,th,tr) 
 {
-    union () {
-        mdtl_Base(s,bh);
-        mdtl_Topper(s,bh,th,tr);
+    difference () {
+        union () {
+            mdtl_Base(s,bh);
+            mdtl_Topper(s,bh,th,tr);
+        }
+        union () {
+            translate([size/2,size,baseheight/2])
+                rotate([0,180,0])
+                    mtdl_Base_Connector(connectorwidth,connectorlength,connectorheight);
+            translate([size/2,0,baseheight/2])
+                rotate([0,180,0])
+                    mtdl_Base_Connector(connectorwidth,connectorlength,connectorheight);
+            translate([size,size/2,baseheight/2])
+                rotate([0,180,90])
+                    mtdl_Base_Connector(connectorwidth,connectorlength,connectorheight);
+            translate([0,size/2,baseheight/2])
+                rotate([0,180,90])
+                    mtdl_Base_Connector(connectorwidth,connectorlength,connectorheight);
+        }
     }
 }
 
@@ -124,7 +153,8 @@ module mdtl_Base_4x4(s,bh,th,tr)
  
 module mdtl_Wall_1(w,l,h)
 {
-    cube([w,l,h]);   
+    translate([0,0,baseheight])
+        cube([w,l,h]);   
 }
 
 module mdtl_Wall_1_Position(w,l,h,p)
