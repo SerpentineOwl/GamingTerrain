@@ -2,4 +2,5 @@ include <ModularDungeonTileLibrary.scad>;
 
 mdtl_Base_2x2(size,baseheight,topperheight,topperrounded);
 //Create Pillar with modified wall
-mdtl_Wall_1_Position(size,size,,wallheight,wallleft);
+mdtl_Wall_2_Position(size,size,wallheight,wallleft);
+mdtl_Wall_2_Position(size,size,wallheight,wallright);

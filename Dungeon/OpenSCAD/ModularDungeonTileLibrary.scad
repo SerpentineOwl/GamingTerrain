@@ -98,20 +98,20 @@ module mdtl_Base_1x1(s,bh,th,tr)
             mdtl_Base(s,bh);
             mdtl_Topper(s,bh,th,tr);
         }
-        union () {
-            translate([size/2,size,baseheight/2])
-                rotate([0,180,0])
-                    mtdl_Base_Connector(connectorwidth,connectorlength,connectorheight);
-            translate([size/2,0,baseheight/2])
-                rotate([0,180,0])
-                    mtdl_Base_Connector(connectorwidth,connectorlength,connectorheight);
-            translate([size,size/2,baseheight/2])
-                rotate([0,180,90])
-                    mtdl_Base_Connector(connectorwidth,connectorlength,connectorheight);
-            translate([0,size/2,baseheight/2])
-                rotate([0,180,90])
-                    mtdl_Base_Connector(connectorwidth,connectorlength,connectorheight);
-        }
+//        union () {
+//            translate([size/2,size,baseheight/2])
+//                rotate([0,180,0])
+//                    mtdl_Base_Connector(connectorwidth,connectorlength,connectorheight);
+//            translate([size/2,0,baseheight/2])
+//                rotate([0,180,0])
+//                    mtdl_Base_Connector(connectorwidth,connectorlength,connectorheight);
+//            translate([size,size/2,baseheight/2])
+//                rotate([0,180,90])
+//                    mtdl_Base_Connector(connectorwidth,connectorlength,connectorheight);
+//            translate([0,size/2,baseheight/2])
+//                rotate([0,180,90])
+//                    mtdl_Base_Connector(connectorwidth,connectorlength,connectorheight);
+//        }
     }
 }
 
